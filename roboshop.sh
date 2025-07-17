@@ -19,9 +19,7 @@ zone_id=Z078325528QCYPHSKGLAG
 DomainName=devopsmaster.xyz
 for instance in ${instances[@]}
 do
-  Instance_id=$(aws ec2 run-instances --image-id ami-09c813fb71547fc4f --count 1 --instance-type t3.micro --key-name DevOpsMaster 
-  --security-group-ids sg-0b267a41ee6ac45fc --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=test}]" 
-  --query 'Instances[0].InstanceId' --output text)
+  Instance_id=$(aws ec2 run-instances --image-id ami-09c813fb71547fc4f --count 1 --instance-type t3.micro  --security-group-ids sg-0b267a41ee6ac45fc --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=test}]" --query 'Instances[0].InstanceId' --output text)
   if [ $instance != "frontend" ]
   then
       IP=$(aws ec2  describe-instances --instance-ids $Instance_id --query 'Reservations[0].Instances[0].PrivateIpAddress' --output text)

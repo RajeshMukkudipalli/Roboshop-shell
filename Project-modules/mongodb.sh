@@ -36,4 +36,11 @@ VALIDATE $? "Copying mongodb.repo file"
 dnf install mongodb-org -y 
 VALIDATE $? "Installing mongodb-org package"
 systemctl enable mongod
+VALIDATE $? "Enabling mongod service"
 systemctl start mongod
+VALIDATE $? "Starting mongod service"
+
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
+VALIDATE $? "Updating bindIp in mongod.conf file"
+systemctl restart mongod
+VALIDATE $? "Restarting mongod service"

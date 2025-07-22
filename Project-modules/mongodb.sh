@@ -22,9 +22,9 @@ fi
 # this is a validation function
 validate() {
     if [ $1 -eq 0 ]; then
-        echo -e "$G Installing $2 is successful" | tee -a $logfile
+        echo -e "$G $2 is successful" | tee -a $logfile
     else
-        echo -e "$R Installing $2 is failed"
+        echo -e "$R  $2 is failed"
         exit 1
     fi
 }

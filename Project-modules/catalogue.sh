@@ -52,7 +52,10 @@ mkdir  /app
 validate $? "Creating /app directory"
 
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
-cd /app 
+
+rm -rf /app/* &&>>$logfile
+cd /app
+
 unzip /tmp/catalogue.zip
 validate $? "Unzipping catalogue.zip file"
 

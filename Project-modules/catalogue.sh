@@ -78,4 +78,10 @@ cp $script_dir/mongo.repo /etc/yum.repos.d/mongo.repo
 dnf install mongodb-mongosh -y
 validate $? "Installing mongodb-mongosh package"
 
-mongosh --host mongodb.devopsmaster.xyz </app/db/master-data.js
+status=$(mongosh --host mongodb.devopsmaster.xyz --eval 'db.getMongo().getDBNames().indexof("catalogue")')
+if [ $status -lt 0 ]
+ then
+    mongosh --host mongodb.devopsmaster.xyz </app/db/master-data.js
+else
+    echo -e "data already exists"
+fi

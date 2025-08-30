@@ -77,9 +77,9 @@ validate $? "Starting shipping service"
 
 dnf install mysql -y
 validate $? "Installing mysql client"
-mysql -h mysql.devopsmaster.xyz -uroot -pRoboShop@1 < /app/db/schema.sql
-mysql -h mysql.devopsmaster.xyz -uroot -pRoboShop@1 < /app/db/app-user.sql 
-mysql -h mysql.devopsmaster.xyz -uroot -pRoboShop@1 < /app/db/master-data.sql
+mysql -h mysql.devopsmaster.xyz -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/schema.sql
+mysql -h mysql.devopsmaster.xyz -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/app-user.sql 
+mysql -h mysql.devopsmaster.xyz -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/master-data.sql
 validate $? "Loading shipping database"
 
 systemctl restart shipping

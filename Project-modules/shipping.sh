@@ -78,7 +78,7 @@ validate $? "Starting shipping service"
 dnf install mysql -y
 validate $? "Installing mysql client"
 
-mysql -h mysql.devopsmaster.xyz -u root -pRoboShop@1 -e 'use cities'
+mysql -h mysql.devopsmaster.xyz -u root -p$MYSQL_ROOT_PASSWPRD -e 'use cities'
 if [ $? -ne 0 ]
 then
     mysql -h mysql.devopsmaster.xyz -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/schema.sql

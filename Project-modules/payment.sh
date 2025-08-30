@@ -60,3 +60,12 @@ validate $? "Installing python dependencies"
 
 cp $script_dir/payment.service /etc/systemd/system/payment.service
 validate $? "Copying payment.service file"
+
+systemctl daemon-reload
+validate $? "Reloading systemctl daemon"
+systemctl enable payment
+validate $? "Enabling payment service"  
+systemctl start payment
+validate $? "Starting payment service"
+END_time=$(date +%s)
+echo "Total time taken to execute the script: $(($END_time - $Start_time)) seconds $N"

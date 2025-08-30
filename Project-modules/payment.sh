@@ -68,4 +68,4 @@ validate $? "Enabling payment service"
 systemctl start payment &>>$logfile
 validate $? "Starting payment service"
 END_time=$(date +%s)
-echo "Total time taken to execute the script: $(($END_time - $Start_time)) seconds $N"
+echo "Total time taken to execute the script: $(($END_time - $Start_time)) seconds $N" | tee -a $logfile

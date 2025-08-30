@@ -48,6 +48,10 @@ validate $? "Enabling redis service"
 systemctl start redis &&>>$logfile
 validate $? "Starting redis service"
 
+End_time=$(date +%s)
+Total_time=$(($End_time - $Start_time))
+echo -e "$Y Total time took to execute the script: $Total_time seconds $N" | tee -a $logfile
+
 
 
 

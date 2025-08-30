@@ -32,7 +32,7 @@ validate() {
     fi
 }
 
-dnf install python3 gcc python3-devel -y
+dnf install python3 gcc python3-devel -y &>>$logfile
 validate $? "Installing python3 package"
 
 id roboshopp
@@ -44,7 +44,7 @@ else
     echo -e "roboshop user already exists"
 fi
 
-mkdir  /app
+mkdir  /app   &>>$logfile
 validate $? "Creating /app directory"
 
 curl -o /tmp/payment.zip https://roboshop-artifacts.s3.amazonaws.com/payment-v3.zip 
@@ -52,20 +52,20 @@ curl -o /tmp/payment.zip https://roboshop-artifacts.s3.amazonaws.com/payment-v3.
 rm -rf /app/* &&>>$logfile
 cd /app
 
-unzip /tmp/opayment.zip
+unzip /tmp/payment.zip &>>$logfile
 validate $? "Unzipping payment.zip file"
 
-pip3 install -r requirements.txt
+pip3 install -r requirements.txt &>>$logfile
 validate $? "Installing python dependencies"
 
-cp $script_dir/payment.service /etc/systemd/system/payment.service
+cp $script_dir/payment.service /etc/systemd/system/payment.service &>>$logfile
 validate $? "Copying payment.service file"
 
-systemctl daemon-reload
+systemctl daemon-reload &>>$logfile
 validate $? "Reloading systemctl daemon"
-systemctl enable payment
+systemctl enable payment &>>$logfile
 validate $? "Enabling payment service"  
-systemctl start payment
+systemctl start payment &>>$logfile
 validate $? "Starting payment service"
 END_time=$(date +%s)
 echo "Total time taken to execute the script: $(($END_time - $Start_time)) seconds $N"

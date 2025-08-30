@@ -1,5 +1,7 @@
 #! /bin/bash
 
+
+Start_time=$(date +%s)
 userid=$(id -u)
 R="\e[31m"
 G="\e[32m"
@@ -51,26 +53,29 @@ fi
 mkdir  /app
 validate $? "Creating /app directory"
 
-curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
+curl -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip 
 
 rm -rf /app/* &&>>$logfile
 cd /app
 
-unzip /tmp/catalogue.zip
-validate $? "Unzipping catalogue.zip file"
+unzip /tmp/user.zip
+validate $? "Unzipping user.zip file"
 
 npm install &&>>$logfile
 validate $? "Installing npm packages"
 
-cp $script_dir/catalogue.service /etc/systemd/system/catalogue.service
-validate $? "Copying catalogue.service file"
+cp $script_dir/user.service /etc/systemd/system/user.service
+validate $? "Copying user.service file"
 
 systemctl daemon-reload &&>>$logfile
 validate $? "Reloading systemd daemon"
 
-systemctl enable catalogue &&>>$logfile
-validate $? "Enabling catalogue service"   
+systemctl enable user &&>>$logfile
+validate $? "Enabling user service"   
 
-systemctl start catalogue &&>>$logfile
-validate $? "Starting catalogue service"
+systemctl start user &&>>$logfile
+validate $? "Starting user service"
 
+End_time=$(date +%s)
+Total_time=$(($End_time - $Start_time))
+echo -e "$Y Total time took to execute the script: $Total_time seconds $N" | tee -a $logfile

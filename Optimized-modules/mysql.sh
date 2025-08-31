@@ -6,7 +6,7 @@ app_name=mysql
 check_root_user
 
 echo "please enter mysql root password"
-read -s MYSQL_ROOT_PASSWORD
+read -s MYSQL_ROOT_PASSWORD #RoboShop@1
 
 dnf install mysql-server -y &>>$logfile
 validate $? "Installing mysql server"

@@ -28,13 +28,13 @@ app_setup(){
     mkdir  /app
     validate $? "Creating /app directory"
 
-    curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
+    curl -o /tmp/$app_name.zip https://roboshop-artifacts.s3.amazonaws.com/$app_name-v3.zip 
 
     rm -rf /app/* &&>>$logfile
     cd /app
 
-    unzip /tmp/catalogue.zip
-    validate $? "Unzipping catalogue.zip file"
+    unzip /tmp/$app_name.zip
+    validate $? "Unzipping $app_name.zip file"
 }
 
 node_js_setup(){
@@ -52,17 +52,17 @@ node_js_setup(){
 }
 
 systemd_setup(){
-    cp $script_dir/catalogue.service /etc/systemd/system/catalogue.service
-    validate $? "Copying catalogue.service file"
+    cp $script_dir/$app_name.service /etc/systemd/system/$app_name.service
+    validate $? "Copying $app_name.service file"
 
     systemctl daemon-reload &&>>$logfile
     validate $? "Reloading systemd daemon"
 
-    systemctl enable catalogue &&>>$logfile
-    validate $? "Enabling catalogue service"   
+    systemctl enable $app_name &&>>$logfile
+    validate $? "Enabling $app_name service"   
 
-    systemctl start catalogue &&>>$logfile
-    validate $? "Starting catalogue service"
+    systemctl start $app_name &&>>$logfile
+    validate $? "Starting $app_name service"
 }
 
 check_root_user(){

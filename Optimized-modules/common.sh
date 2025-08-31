@@ -51,6 +51,17 @@ node_js_setup(){
     validate $? "Installing npm packages"
 }
 
+maven_setup(){
+    dnf install maven -y &>>$logfile
+    validate $? "Installing maven package"
+
+    mvn clean package &>>$logfile
+    validate $? "Building shipping application"
+    
+    mv target/shipping-1.0.jar shipping.jar
+    validate $? "Renaming shipping jar file"
+}
+
 systemd_setup(){
     cp $script_dir/$app_name.service /etc/systemd/system/$app_name.service
     validate $? "Copying $app_name.service file"

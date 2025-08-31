@@ -7,15 +7,6 @@ check_root_user
 
 echo "please enter mysql root password"
 read -s MYSQL_ROOT_PASSWORD
-# this is a validation function
-validate() {
-    if [ $1 -eq 0 ]; then
-        echo -e "$G $2 is successful" | tee -a $logfile
-    else
-        echo -e "$R  $2 is failed"
-        exit 1
-    fi
-}
 
 dnf install mysql-server -y &>>$logfile
 validate $? "Installing mysql server"

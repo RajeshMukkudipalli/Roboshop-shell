@@ -21,7 +21,7 @@ do
       echo "$instance Ip address: $IP"
 
 
-      aws route53 change-resource-record-sets --hosted-zone-id $zone_id --change-batch '{
+    aws route53 change-resource-record-sets --hosted-zone-id $zone_id --change-batch '{
         "Changes": [
           {
             "Action": "UPSERT",

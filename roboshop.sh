@@ -1,10 +1,10 @@
 #!/bin/bash
 
-ami_id=ami-09c813fb71547fc4f
-sg_id=sg-0b267a41ee6ac45fc
+ami_id="ami-09c813fb71547fc4f"
+sg_id="sg-0b267a41ee6ac45fc"
 INSTANCES=("catalogue" "cart" "dispatch" "frontend" "mongodb" "mysql" "payment" "rabbitmq" "shipping" "redis" "user")
-zone_id=Z078325528QCYPHSKGLAG
-DomainName=devopsmaster.xyz
+zone_id="Z078325528QCYPHSKGLAG"
+DomainName="'devopsmaster.xyz"
 
 for instance in ${INSTANCES[@]}
 

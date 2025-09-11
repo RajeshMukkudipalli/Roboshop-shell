@@ -19,4 +19,22 @@ do
       
     fi
       echo "$instance Ip address: $IP"
+
+      aws route53 change-resource-record-sets \
+      --hosted-zone-id $zone_id \
+      --change-batch '
+      {
+          "Comment": "Creating or updating a record set for roboshop project"
+          ,"Changes": [{
+          "Action"              : "UPSERT"
+          ,"ResourceRecordSet"  : {
+              "Name"              : "'$instance'.'$DomainName'"
+              ,"Type"             : "A"
+              ,"TTL"              : 1
+              ,"ResourceRecords"  : [{
+                  "Value"         : "'$IP'"
+        }]
+      }
+    }]
+  }
 done
